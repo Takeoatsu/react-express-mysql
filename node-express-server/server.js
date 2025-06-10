@@ -3,18 +3,17 @@ const cors = require("cors");
 
 const app = express(); // Initialize CORS options
 
-app.use(cors(corsOptions));
-
 var corsOptions = {
-  origin: "http://localhost:3000", // Adjust this to your frontend's URL
+  origin: "https://reactstaticwebapp.z9.web.core.windows.net/", // Adjust this to your frontend's URL
 };
 
+// ✅ Apply CORS middleware
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(express.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
+// Parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
@@ -33,14 +32,19 @@ db.sequelize.sync()
 // });
 
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
 
+app.get("/api/users", (req, res) => {
+    res.json([
+      { id: 1, name: "Alice" },
+      { id: 2, name: "Bob" }
+    ]);
+  });
+  
 require("./app/routes/turorial.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on port ${PORT}.`);
+    console.log(`Server is running on port ${PORT}.`);
+
 });

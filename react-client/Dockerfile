@@ -29,7 +29,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 # Copy the Nginx configuration file to the Nginx configuration directory
 # This allows customization of the Nginx server settings, such as routing and caching
-EXPOSE 3000
+EXPOSE 80
 # Set the environment variable for the Nginx server
 # This is typically set to 'production' in a production environment
 CMD ["nginx", "-g", "daemon off;"]

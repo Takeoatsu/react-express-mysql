@@ -1,0 +1,69 @@
+version: '3.8'
+
+# This docker-compose file sets up a Node.js Express backend, a React frontend, and a MySQL database.
+# The backend connects to the MySQL database, and the frontend communicates with the backend.
+services:
+  # MySQL service
+  # The MySQL service uses the official MySQL image and sets up a persistent volume for data storage.
+  mysql:
+    # Use the official MySQL image
+    image: mysql:8.0
+    # Set the container name for easier management
+    container_name: mysql
+    # Restart policy to always restart the container unless stopped manually
+    restart: always
+    # Environment variables for MySQL configuration
+    env_file:
+      - .env
+    # Expose MySQL port 3306 to the host
+    ports:
+      - "3306:3306"
+    # Volume for persistent MySQL data storage
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Node.js Express backend service
+  # The backend service builds from a Dockerfile in the node-express-server directory.
+  backend:
+    # Build the backend service from the specified directory
+    build: ./node-express-server
+    # Set the container name for easier management
+    container_name: backend
+    # Restart policy to always restart the container unless stopped manually
+    restart: always
+    # Link the backend service to the MySQL service
+    depends_on:
+      - mysql
+    # Environment variables for backend configuration
+    # These variables are loaded from a .env file for security and flexibility
+    env_file:
+      - .env
+    # Expose backend port 8080 to the host
+    ports:
+      - "8080:8080"
+    # Set the working directory inside the container
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=bezkoder
+      - DB_PASSWORD=bezkoder
+      - DB_NAME=bezkoder_db
+
+  # React frontend service
+  # The frontend service builds from a Dockerfile in the react-client directory.
+  frontend:
+    # Build the frontend service from the specified directory
+    build: ./react-client
+    # Set the container name for easier management
+    container_name: frontend
+    # Restart policy to always restart the container unless stopped manually
+    restart: always
+    # Link the frontend service to the backend service
+    depends_on:
+      - backend
+    # Environment variables for frontend configuration
+    ports:
+      - "3000:80"
+
+# Volume for hot reloading during development
+volumes:
+  mysql_data:

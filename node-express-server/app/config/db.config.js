@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: process.env.DB_HOST || "localhost",
-  USER: process.env.DB_USER || "root",
-  PASSWORD: process.env.DB_PASSWORD || "",
-  DB: process.env.DB_NAME || "testdb",
+  HOST: process.env.DB_HOST || "react-express-db.mysql.database.azure.com",
+  USER: process.env.DB_USER || "expressadmin",
+  PASSWORD: process.env.DB_PASSWORD || "2508Moni!",
+  DB: process.env.DB_NAME || "react-express-db",
   dialect: "mysql",
   pool: {
     max: 5,

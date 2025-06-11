@@ -1,0 +1,40 @@
+
+# This file defines the variables used in the Terraform configuration.
+variable "subscription_id" {
+  description = "The Azure Subscription ID where resources will be created."
+  
+}
+variable "resource_group_name" {
+    description = "The name of the resource group where resources will be created."
+}
+variable "location" {
+    description = "The Azure region where resources will be deployed."
+}
+variable "storage_account_name" {
+    description = "The name of the storage account to be created."
+}
+variable "acr_name" {
+    description = "The name of the Azure Container Registry to be created."
+}
+variable "backend_app_name" {
+    description = "The name of the backend App Service to be created."
+}
+variable "sql_server_name" {
+    description = "The name of the SQL Server to be created."
+}
+variable "sql_database_name" {
+    description = "The name of the SQL Database to be created."
+}
+variable "sql_admin_user" {
+    description = "The administrator username for the SQL Server."
+}
+variable "sql_admin_password" {
+    description = "The administrator password for the SQL Server."
+}
+variable "db_connection_string" {
+    description = "The connection string for the SQL Database."
+}
+variable "image_tag" {
+    description = "The tag for the Docker image to be used in the backend App Service."
+}
+

@@ -5,5 +5,5 @@ output "frontend_endpoint" {
 
 output "backend_url" {
   description = "public URL of the backend API"
-  value       = "https://${azurerm_app_service.backend.default_site_hostname}/api"
+  value       = "https://${azurerm_linux_web_app.backend.default_hostname}/api"
 }

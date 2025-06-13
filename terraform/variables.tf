@@ -25,15 +25,15 @@ variable "sql_server_name" {
 variable "sql_database_name" {
     description = "The name of the SQL Database to be created."
 }
-variable "sql_admin_user" {
-    description = "The administrator username for the SQL Server."
-}
-variable "sql_admin_password" {
-    description = "The administrator password for the SQL Server."
-}
-variable "db_connection_string" {
-    description = "The connection string for the SQL Database."
-}
+//variable "sql_admin_user" {
+    //description = "The administrator username for the SQL Server."
+//}
+//variable "sql_admin_password" {
+   // description = "The administrator password for the SQL Server."
+//}
+//variable "db_connection_string" {
+    //description = "The connection string for the SQL Database."
+//}
 variable "image_tag" {
     description = "The tag for the Docker image to be used in the backend App Service."
 }

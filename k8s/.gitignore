@@ -1,4 +1,0 @@
-#K8s configuration files
-*.yaml.tmp
-.kubeconfig
-.yaml.backend

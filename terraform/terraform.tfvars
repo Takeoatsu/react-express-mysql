@@ -13,9 +13,6 @@ acr_name              = "reactexpressacr1"
 backend_app_name      = "react-express-backend1"
 sql_server_name       = "react-express-db1"
 sql_database_name     = "react-express-db1"
-//sql_admin_user        = "expressadmin"
-//sql_admin_password    = "2508Moni!"
-//db_connection_string  = "Server=tcp:react-express-db1.database.windows.net,3306;Initial Catalog=react-express-db;Persist Security Info=False;User ID=expressadmin;Password=2508Moni!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 image_tag = "v1"
 # Note: The SQL admin password should be stored securely and not hard-coded in production environments.
 # Ensure that the storage account name is globally unique.

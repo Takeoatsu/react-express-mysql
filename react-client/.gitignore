@@ -24,3 +24,13 @@ yarn-error.log*
 
 #.env
 .env
+.env.test
+.env.production
+.env.development
+.env.staging
+.env.local
+
+
+# next.js
+.next
+

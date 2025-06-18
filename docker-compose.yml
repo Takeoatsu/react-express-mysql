@@ -43,10 +43,10 @@ services:
       - "8080:8080"
     # Set the working directory inside the container
     environment:
-      - DB_HOST=mysql
-      - DB_USER=bezkoder
-      - DB_PASSWORD=bezkoder
-      - DB_NAME=bezkoder_db
+      - DB_HOST=react-express-db1.mysql.database.azure.com # MySQL host, typically an Azure database, replace with your actual host
+      - DB_USER=expressadmin # MySQL user, replace with your actual user
+      - DB_PASSWORD=2508Moni! # MySQL password, replace with your actual password
+      - DB_NAME=react-express-d1 # MySQL database name, replace with your actual database name
 
   # React frontend service
   # The frontend service builds from a Dockerfile in the react-client directory.

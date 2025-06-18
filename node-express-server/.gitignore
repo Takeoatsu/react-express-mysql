@@ -1,2 +1,12 @@
 node_modules
 package-lock.json
+
+#express server files
+.env
+/logs
+*.log
+/tmp
+.DS_Store
+# coverage reports
+/coverage
+

@@ -1,0 +1,24 @@
+#Terraform state files
+*.tfstate
+*.tfstate.*
+.terraform/
+#Crash log files
+crash.log
+#Ignore override files
+override.tf
+override.tf.json
+#Ignore local variables files
+*.tfvars
+*.tfvars.json
+#Ignore backup files
+*.tfbackup
+#Ignore plan files
+*.tfplan
+#Ignore provider lock files
+.terraform.lock.hcl
+#Ignore workspace files
+.terraform.tfstate
+#Ignore module cache
+.terraform/modules/
+#Ignore local backend files
+.terraform/local-backend.tfstate

@@ -1,0 +1,4 @@
+.env
+terraform/.terraform/*
+terraform/.terraform/providers/*
+terraform/.terraform/providers/registry.terraform.io//hashicorp/azurerm/4.32.0/windows_386/*

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment # Frontend Deployment
+metadata: # Frontend Deployment
+  name: frontend-deployment # Name of the Deployment
+spec: # Frontend Deployment Specification
+  replicas: 1 # Number of replicas
+  selector: # Selector for the Deployment
+    matchLabels: # Match labels for the Deployment
+      app: frontend # Label to match the frontend app
+  template: # Template for the Deployment
+    metadata: # Template metadata
+      labels: # Labels for the template
+        app: frontend # Label for the frontend app 
+    spec: # Template specification
+      containers: # List of containers in the pod
+        - name: frontend # Name of the container
+          image: reactexpressacr1.azurecr.io/react-frontend:v8 # Image for the frontend container
+          ports: # Ports to expose
+            - containerPort: 80 # Port for the frontend container
+

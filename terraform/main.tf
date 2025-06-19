@@ -49,7 +49,34 @@ resource "azurerm_kubernetes_cluster" "aks" {
   identity {
     type = "SystemAssigned" # This enables the AKS cluster to use a managed identity
   }
+
+  ingress_application_gateway {
+    gateway_id = azurerm_application_gateway.appgw.id
+  }
 }
+
+resource "azurerm_public_ip" "appgw_pip" {
+  name                = "reactExpressAppGwPip"
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_virtual_network" "vnet" {
+  name                = "reactExpressVNet"
+  address_space       = ["10.0.0.0/16"]
+  location            = data.azurerm_resource_group.main.location
+  resource_group_name = data.azurerm_resource_group.main.name
+}
+
+resource "azurerm_subnet" "appgw_subnet" {
+  name                 = "appgw-subnet"
+  resource_group_name  = data.azurerm_resource_group.main.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
 
 resource "azurerm_storage_account" "frontend" {
   name                     = var.storage_account_name
@@ -130,4 +157,61 @@ resource "azurerm_mssql_database" "sqldb" {
   name      = var.sql_database_name
   server_id = azurerm_mssql_server.sqlserver.id
   sku_name  = "Basic"
+}
+resource "azurerm_application_gateway" "appgw" {
+  name                = "reactExpressAppGateway"
+  resource_group_name = data.azurerm_resource_group.main.name
+  location            = data.azurerm_resource_group.main.location
+
+  sku {
+    name     = "Standard_v2"
+    tier     = "Standard_v2"
+    capacity = 1
+  }
+
+  gateway_ip_configuration {
+    name      = "appGatewayIpConfig"
+    subnet_id = azurerm_subnet.appgw_subnet.id
+  }
+
+  frontend_port {
+    name = "frontendPort"
+    port = 80
+  }
+
+  frontend_ip_configuration {
+    name                 = "frontendIpConfig"
+    public_ip_address_id = azurerm_public_ip.appgw_pip.id
+  }
+
+  backend_address_pool {
+    name = "backendPool"
+  }
+
+  backend_http_settings {
+    name                  = "httpSettings"
+    cookie_based_affinity = "Disabled"
+    port                  = 80
+    protocol              = "Http"
+    request_timeout       = 20
+  }
+
+  http_listener {
+    name                           = "httpListener"
+    frontend_ip_configuration_name = "frontendIpConfig"
+    frontend_port_name             = "frontendPort"
+    protocol                       = "Http"
+  }
+
+  request_routing_rule {
+    name                       = "rule1"
+    rule_type                  = "Basic"
+    http_listener_name         = "httpListener"
+    backend_address_pool_name  = "backendPool"
+    backend_http_settings_name = "httpSettings"
+  }
+
+  tags = {
+    environment = "Dev"
+  }
 }

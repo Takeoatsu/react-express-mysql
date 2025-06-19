@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1 # Frontend Ingress
+kind: Ingress # Frontend Ingress
+metadata: # Frontend Ingress Metadata
+  name: frontend-ingress # Name of the Ingress
+  annotations: # Annotations for the Ingress
+    kubernetes.io/ingress.class: azure/application-gateway # Ingress class for Azure Application Gateway
+spec: # Frontend Ingress Specification
+  rules: # Rules for the Ingress
+  - host: frontend.react-express.com # Host for the Ingress
+    http: # HTTP rules for the Ingress
+      paths: # Paths for the Ingress
+      - path: / # Path for the Ingress
+        pathType: Prefix # Path type for the Ingress
+        backend: # Backend for the Ingress
+          service: # Backend service for the Ingress
+            name: frontend-service # Name of the backend service
+            port: # Port for the backend service
+              number: 80 # Port number for the backend service
+ 

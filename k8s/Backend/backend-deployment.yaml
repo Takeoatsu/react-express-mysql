@@ -1,0 +1,38 @@
+apiVersion: apps/v1 # Deployment API version
+kind: Deployment # Deployment kind
+metadata: # Deployment metadata
+  name: backend-deployment # Name of the deployment
+spec: # Deployment specification
+  replicas: 1 # Number of replicas
+  selector: # Selector for the deployment
+    matchLabels: # Match labels for the pods
+      app: backend # Label to match pods
+  template: # Pod template
+    metadata: # Pod metadata
+      labels: # Labels for the pod
+        app: backend # Label for the pod
+    spec: # Pod specification
+      containers: # List of containers in the pod
+        - name: backend # Name of the container
+          image: reactexpressacr1.azurecr.io/react-backend:v12 # Image for the container
+          ports: # Ports exposed by the container
+            - containerPort: 8080 # Port on which the container listens
+          env: # Environment variables for the container
+            - name: DB_CONNECTION_STRING # Name of the environment variable
+              valueFrom: # Value from a secret
+                secretKeyRef: # Reference to a secret
+                  name: backend-secret # Name of the secret
+                  key: DB_CONNECTION_STRING # This should match the key in your secret
+---
+#apiVersion: v1
+#kind: Service
+#3metadata:
+  #name: backend-service
+#spec:
+ # type: LoadBalancer
+  #selector:
+    #app: backend
+  #ports:
+   # - protocol: TCP
+    #  port: 80
+    #  targetPort: 8080

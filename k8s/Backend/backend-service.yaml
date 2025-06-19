@@ -1,0 +1,11 @@
+apiVersion: v1 # Service API version
+kind: Service # Service kind
+metadata: # Service metadata
+  name: backend-service # Name of the service
+spec: # Service specification
+  type: ClusterIP # Type of service, ClusterIP is the default
+  selector: # Selector for the service
+    app: backend # Label selector for the backend pods
+  ports: # Ports exposed by the service 
+    - port: 80 # Port on which the service listens
+      targetPort: 8080 # Port on which the backend container listens 

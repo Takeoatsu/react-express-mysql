@@ -1,0 +1,11 @@
+apiVersion: v1 # Frontend Service
+kind: Service # Frontend Service 
+metadata: # Frontend Service Metadata
+  name: frontend-service # Name of the Service
+spec: # Frontend Service Specification 
+  type: ClusterIP # Type of Service
+  selector: # Selector for the Service
+    app: frontend # App label for the Service
+  ports: # Ports for the Service
+    - port: 80 # Port for the Service 
+      targetPort: 80 # Target port for the Service

@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1 # Ingress API version
+kind: Ingress # Ingress resource type
+metadata: # Metadata for the Ingress resource
+  name: react-express-ingress # Name of the Ingress resource
+  namespace: default # Namespace where the Ingress will be created
+  annotations: # Annotations for the Ingress resource
+    nginx.ingress.kubernetes.io/rewrite-target: /$1 # Rewrite target for the paths
+    nginx.ingress.kubernetes.io/use-regex: "true" # Enable regex for path matching
+spec: # Specification for the Ingress resource
+  ingressClassName: nginx # Specify the Ingress class to use 
+  rules: # Rules for routing traffic
+  - host: backend.local
+  - http: # HTTP rules for the Ingress
+      paths: # List of paths for routing
+        - path: /api/?(.*) # Path for API requests 
+          pathType: ImplementationSpecific # Type of path matching
+          backend: # Backend service for the API
+            service: # Service to route API requests
+              name: backend-service # Name of the backend service
+              port: # Port of the backend service
+                number: 80 # Port number for the backend service
+  - host: frontend.local # Host for the frontend
+  - http: # HTTP rules for the frontend
+        - path: /?(.*) # Path for frontend requests
+          pathType: ImplementationSpecific # Type of path matching
+          backend: # Backend service for the frontend
+            service: # Service to route frontend requests
+              name: frontend-service # Name of the frontend service
+              port: # Port of the frontend service
+                number: 80 # Port number for the frontend service
